@@ -1,20 +1,74 @@
 import { createRouter, createWebHistory, RouteRecordRaw } from 'vue-router'
-import HomeView from '../views/HomeView.vue'
 
 const routes: Array<RouteRecordRaw> = [
+  // Main
   {
     path: '/',
-    name: 'home',
-    component: HomeView
+    component: () => import('../views/Main/HomeView.vue') 
   },
   {
-    path: '/about',
-    name: 'about',
-    // route level code-splitting
-    // this generates a separate chunk (about.[hash].js) for this route
-    // which is lazy-loaded when the route is visited.
-    component: () => import(/* webpackChunkName: "about" */ '../views/AboutView.vue')
-  }
+    path: '/shop',
+    component: () => import('../views/Main/ShopView.vue') 
+  },
+
+  // Account
+  {
+    path: '/profile',
+    component: () => import('../views/Account/ProfileView.vue') 
+  },
+  {
+    path: '/profileInfo',
+    component: () => import('../views/Account/ProfileInfoView.vue') 
+  },
+  {
+    path: '/manageAddress',
+    component: () => import('../views/Account/ManageAddressView.vue')
+  },
+  {
+    path: '/changePassword',
+    component: () => import('../views/Account/ChangePasswordView.vue')
+  },
+
+  // Auth
+  {
+    path: '/login',
+    component: () => import('../views/Auth/LoginView.vue')
+  },
+  {
+    path: '/register',
+    component: () => import('../views/Auth/RegisterView.vue')
+  },
+
+  // Product
+  {
+    path: '/productDetails',
+    component: () => import('../views/Product/ProductDetailsView.vue')
+  },
+  {
+    path: '/productWishList',
+    component: () => import('../views/Product/ProductWishListView.vue')
+  },
+  
+  // Order
+  {
+    path: '/cart',
+    component: () => import('../views/Order/CartView.vue')
+  },
+  {
+    path: '/checkout',
+    component: () => import('../views/Order/CheckOutView.vue')
+  },
+  {
+    path: '/orderComplete',
+    component: () => import('../views/Order/OrderCompleteView.vue')
+  },
+
+  // 404
+  {
+    path: '/:pathMatch(.*)*',
+    component: () => import('../views/Main/NotFoundView.vue')
+  }  
+
 ]
 
 const router = createRouter({
