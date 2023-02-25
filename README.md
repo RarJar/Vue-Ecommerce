@@ -15,10 +15,7 @@ npm run serve
 npm run build
 ```
 
-### Lints and fixes files
-```
-npm run lint
-```
+## Template Credit
 
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
+Template Credit
+https://github.com/RarJar/ecommerce-template-tailwind-1
