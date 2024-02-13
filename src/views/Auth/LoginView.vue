@@ -9,23 +9,26 @@
             <p class="text-gray-600 mb-6 text-sm">
                 Login if you are a returing customer
             </p>
-            <form action="">
+            <div>
                 <div class="space-y-4">
                     <div>
                         <label class="text-gray-600 mb-2 block">
                             Email Address <span class="text-primary">*</span>
                         </label>
-                        <input type="email" class="input-box" placeholder="example@mail.com">
+                        <input type="email" class="input-box mb-2" placeholder="example@mail.com" v-model="loginData.email">
+                        <a class="text-primary" v-if="loginValidation.emailVali">အီးမေးလိပ်စာဖြည့်ရန်လိုအပ်သည်</a>
                     </div>
                     <div>
                         <label class="text-gray-600 mb-2 block">Password <span class="text-primary">*</span></label>
-                        <input type="password" class="input-box" placeholder="type password">
+                        <input type="password" class="input-box mb-2" placeholder="type password" v-model="loginData.password">
+                        <a class="text-primary" v-if="loginValidation.passwordVali">စကားဝှက်ဖြည့်ရန်လိုအပ်သည်</a>
+                        <a class="text-primary" v-if="loginValidation.wrongPasswordVali">စကားဝှက်မှားယွင်းနေပါသည်</a>
                     </div>
                 </div>
                 <div class="flex items-center justify-between mt-6">
                     <div class="flex items-center">
                         <input type="checkbox" id="agreement"
-                            class="text-primary focus:ring-0 rounded-sm cursor-pointer">
+                            class="text-primary focus:ring-0 rounded-sm cursor-pointer" v-model="agreementState">
                         <label for="agreement" class="text-gray-600 ml-3 cursor-pointer">
                             Remember Me
                         </label>
@@ -33,12 +36,9 @@
                     <a href="#" class="text-primary">Forgot Password?</a>
                 </div>
                 <div class="mt-4">
-                    <button type="submit"
-                        class="block w-full py-2 text-center text-white bg-primary border border-primary rounded hover:bg-transparent hover:text-primary transition uppercase font-roboto font-medium">
-                        Login
-                    </button>
+                    <button class="block w-full py-2 text-center text-white bg-primary border border-primary rounded hover:bg-transparent hover:text-primary transition uppercase font-roboto font-medium" @click="loginBtn()">Login</button>
                 </div>
-            </form>
+            </div>
 
             <!-- login with social -->
             <div class="mt-6 flex justify-center relative">
@@ -70,7 +70,59 @@
 </template>
 
 <script>
+import axios from "axios";
     export default {
-        
+        name : "LoginView",
+        data () {
+            return {
+                loginData : {
+                    email: '',
+                    password: ''
+                },
+                loginValidation : {
+                    emailVali: false,
+                    passwordVali: false,
+                    wrongPasswordVali: false
+                },
+                agreementState: false
+            }
+        },
+        watch: {
+            agreementState(event) {
+                if (event) {
+                    console.log('checked');
+                }else{
+                    console.log('un_checked');
+                }
+            }
+        },
+        methods: {
+            loginBtn () {
+                // Check validation
+                this.loginValidation.emailVali = this.loginData.email == "" ? true:false;
+                this.loginValidation.passwordVali = this.loginData.password == "" ? true:false;
+
+                if (this.loginData.email != "" && this.loginData.password != "") {
+                    axios.post("http://127.0.0.1:8000/api/loginAccount", this.loginData).then(response => {
+                        if (response.data.state == 'success') {
+                            localStorage.setItem('authToken',response.data.token);
+                            this.$router.push('/profile');
+
+                            this.$swal.fire({
+                                    position: 'top-end',
+                                    icon: "success",
+                                    title: "လော့အင်ဝင်ခြင်းအောင်မြင်ပါသည်",
+                                    didOpen: (toast) => {
+                                        toast.addEventListener('mouseenter', this.$swal.stopTimer)
+                                        toast.addEventListener('mouseleave', this.$swal.resumeTimer)
+                                    }
+                            });
+                        } else {
+                            this.loginValidation.wrongPasswordVali = true;
+                        }
+                    });
+                }
+            }
+        }
     }
 </script>

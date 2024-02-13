@@ -4,33 +4,21 @@
             <div class="container flex items-center justify-between">
                 <!-- logo -->
                 <a href="#" class="block w-32">
-                    <img src="images/logo.svg" alt="logo" class="w-full">
+                    <img src="/images/logo.svg" alt="logo" class="w-full">
                 </a>
                 <!-- logo end -->
 
-                <!-- searchbar -->
-                <div class="w-full xl:max-w-xl lg:max-w-lg lg:flex relative hidden">
-                    <span class="absolute left-4 top-3 text-lg text-gray-400">
-                    <i class="fas fa-search"></i>
-                </span>
-                    <input type="text" class="pl-12 w-full border border-r-0 border-primary py-3 px-3 rounded-l-md focus:ring-primary focus:border-primary" placeholder="search">
-                    <button type="submit" class="bg-primary border border-primary text-white px-8 font-medium rounded-r-md hover:bg-transparent hover:text-primary transition">
-                    Search
-                </button>
-                </div>
-                <!-- searchbar end -->
-
                 <!-- navicons -->
                 <div class="space-x-4 flex items-center">
-                    <router-link to="/productWishList" class="block text-center text-gray-700 hover:text-primary transition relative">
+                    <router-link to="/favorite" class="lg:block text-center text-gray-700 hover:text-primary transition hidden relative">
                         <span class="absolute -right-0 -top-1 w-5 h-5 rounded-full flex items-center justify-center bg-primary text-white text-xs">5</span>
                         <div class="text-2xl">
                             <i class="far fa-heart"></i>
                         </div>
-                        <div class="text-xs leading-3">Wish List</div>
+                        <div class="text-xs leading-3">Favorite</div>
                     </router-link>
                     <router-link to="/cart" class="lg:block text-center text-gray-700 hover:text-primary transition hidden relative">
-                        <span class="absolute -right-3 -top-1 w-5 h-5 rounded-full flex items-center justify-center bg-primary text-white text-xs">3</span>
+                        <span class="absolute -right-3 -top-1 w-5 h-5 rounded-full flex items-center justify-center bg-primary text-white text-xs">{{cartItems}}</span>
                         <div class="text-2xl">
                             <i class="fas fa-shopping-bag"></i>
                         </div>
@@ -50,70 +38,19 @@
         <!-- header end -->
 
         <!-- navbar -->
-        <nav class="bg-gray-800 hidden lg:block">
+        <nav class="bg-gray-800 hidden lg:block py-4">
             <div class="container">
                 <div class="flex">
-
-                    <!-- all category -->
-                    <div class="px-8 py-4 bg-primary flex items-center cursor-pointer group relative">
-                        <span class="text-white">
-                        <i class="fas fa-bars"></i>
-                    </span>
-                        <span class="capitalize ml-2 text-white">All categories</span>
-
-                        <div class="absolute left-0 top-full w-full bg-white shadow-md py-3 invisible opacity-0 group-hover:opacity-100 group-hover:visible transition duration-300 z-50 divide-y divide-gray-300 divide-dashed">
-                            <!-- single category -->
-                            <a href="#" class="px-6 py-3 flex items-center hover:bg-gray-100 transition">
-                                <img src="images/icons/bed.svg" class="w-5 h-5 object-contain">
-                                <span class="ml-6 text-gray-600 text-sm">Bedroom</span>
-                            </a>
-                            <!-- single category end -->
-                            <!-- single category -->
-                            <a href="#" class="px-6 py-3 flex items-center hover:bg-gray-100 transition">
-                                <img src="images/icons/sofa.svg" class="w-5 h-5 object-contain">
-                                <span class="ml-6 text-gray-600 text-sm">Sofa</span>
-                            </a>
-                            <!-- single category end -->
-                            <!-- single category -->
-                            <a href="#" class="px-6 py-3 flex items-center hover:bg-gray-100 transition">
-                                <img src="images/icons/office.svg" class="w-5 h-5 object-contain">
-                                <span class="ml-6 text-gray-600 text-sm">Office</span>
-                            </a>
-                            <!-- single category end -->
-                            <!-- single category -->
-                            <a href="#" class="px-6 py-3 flex items-center hover:bg-gray-100 transition">
-                                <img src="images/icons/terrace.svg" class="w-5 h-5 object-contain">
-                                <span class="ml-6 text-gray-600 text-sm">Outdoor</span>
-                            </a>
-                            <!-- single category end -->
-                            <!-- single category -->
-                            <a href="#" class="px-6 py-3 flex items-center hover:bg-gray-100 transition">
-                                <img src="images/icons/bed-2.svg" class="w-5 h-5 object-contain">
-                                <span class="ml-6 text-gray-600 text-sm">Mattress</span>
-                            </a>
-                            <!-- single category end -->
-                            <!-- single category -->
-                            <a href="#" class="px-6 py-3 flex items-center hover:bg-gray-100 transition">
-                                <img src="images/icons/restaurant.svg" class="w-5 h-5 object-contain">
-                                <span class="ml-6 text-gray-600 text-sm">Sofa</span>
-                            </a>
-                            <!-- single category end -->
-                        </div>
-                    </div>
-                    <!-- all category end -->
-
                     <!-- nav menu -->
-                    <div class="flex items-center justify-between flex-grow pl-12">
+                    <div class="flex items-center justify-between flex-grow">  <!-- pl-12 -->
                         <div class="flex items-center space-x-6 text-base capitalize">
-                            <!-- <a href="index.html" class="text-gray-200 hover:text-white transition">Home</a> -->
-                            <router-link to="/" class="text-gray-200 hover:text-white transition">Home</router-link>
-                            <router-link to="/shop" class="text-gray-200 hover:text-white transition">Shop</router-link>
-                            <a href="#" class="text-gray-200 hover:text-white transition">About us</a>
-                            <a href="#" class="text-gray-200 hover:text-white transition">Contact us</a>
+                            <router-link to="/" class="text-gray-200 hover:text-white transition">ပင်မ</router-link>
+                            <router-link to="/shop" class="text-gray-200 hover:text-white transition">စျေးဆိုင်</router-link>
+                            <a href="#" class="text-gray-200 hover:text-white transition">ဆက်သွယ်ရန်</a>
                         </div>
-                        <router-link to="/login" class="ml-auto justify-self-end text-gray-200 hover:text-white transition">
-                        Login
-                        </router-link>
+                        <a class="ml-auto justify-self-end text-primary transition cursor-pointer" @click="logoutBtn()" v-if="authState">Logout</a>
+
+                        <router-link to="/login" class="ml-auto justify-self-end text-gray-200 hover:text-white transition cursor-pointer" v-else>Login</router-link>
                     </div>
                     <!-- nav menu end -->
 
@@ -130,30 +67,31 @@
                 </div>
                 <div class="text-xs leading-3">Menu</div>
             </a>
-            <a href="#" class="block text-center text-gray-700 hover:text-primary transition relative">
+            <router-link to="/shop" class="block text-center text-gray-700 hover:text-primary transition relative">
                 <div class="text-2xl">
-                    <i class="fas fa-table-list"></i>
+                    <i class="fa fa-shop"></i>
                 </div>
-                <div class="text-xs leading-3">Category</div>
-            </a>
-            <a href="#" class="block text-center text-gray-700 hover:text-primary transition relative">
-                <div class="text-2xl">
-                    <i class="fas fa-search"></i>
-                </div>
-                <div class="text-xs leading-3">Search</div>
-            </a>
-            <a href="cart.html" class="text-center text-gray-700 hover:text-primary transition relative">
+                <div class="text-xs leading-3">Shop</div>
+            </router-link>
+            <router-link to="/favorite" class="block text-center text-gray-700 hover:text-primary transition relative">
                 <span class="absolute -right-3 -top-1 w-5 h-5 rounded-full flex items-center justify-center bg-primary text-white text-xs">3</span>
                 <div class="text-2xl">
-                    <i class="fas fa-shopping-bag"></i>
+                    <i class="fas fa-heart"></i>
+                </div>
+                <div class="text-xs leading-3">Favorite</div>
+            </router-link>
+            <router-link to="/cart" class="text-center text-gray-700 hover:text-primary transition relative">
+                <span class="absolute -right-3 -top-1 w-5 h-5 rounded-full flex items-center justify-center bg-primary text-white text-xs">{{cartItems}}</span>
+                <div class="text-2xl">
+                    <i class="fa fa-shopping-bag"></i>
                 </div>
                 <div class="text-xs leading-3">Cart</div>
-            </a>
+            </router-link>
         </div>
         <!-- mobile menu end -->
 
         <!-- mobile sidebar menu -->
-        <div class="fixed left-0 top-0 w-full h-full z-50 bg-black bg-opacity-30 shadow" :class="hiddenState">
+        <div class="fixed left-0 top-0 w-full h-full z-50 bg-black bg-opacity-30 shadow" :class="menuHideState">
             <div class="absolute left-0 top-0 w-72 h-full z-50 bg-white shadow">
                 <div @click="closeMenu()" class="text-gray-400 hover:text-primary text-lg absolute right-3 top-3 cursor-pointer">
                     <i class="fas fa-times"></i>
@@ -184,20 +122,52 @@
 </template>
 
 <script>
+import axios from "axios";
+
     export default {
         name : 'App',
         data () {
             return {
-                hiddenState : 'hidden'
+                menuHideState : 'hidden',
+                authState : false,
+                cartItems: 0
             }
         },
         methods: {
             openMenu () {
-                this.hiddenState = 'unhidden'
+                this.menuHideState = 'unhidden'
             },
             closeMenu(){
-                this.hiddenState = 'hidden'
+                this.menuHideState = 'hidden'
+            },
+            checkAuthState(){
+                let data = localStorage.getItem('authToken');
+                this.authState = data == "" ? false:true;
+            },
+            logoutBtn(){
+                localStorage.setItem('authToken',"");
+                this.authState = false
+                this.$router.push('/login');
+
+                this.$swal.fire({
+                    position: 'top-end',
+                    icon: "success",
+                    title: "အကောင့်ထွက်ခြင်းအောင်မြင်ပါသည်",
+                    didOpen: (toast) => {
+                        toast.addEventListener('mouseenter', this.$swal.stopTimer)
+                        toast.addEventListener('mouseleave', this.$swal.resumeTimer)
+                    }
+                });
+            },
+            countCartItems(){
+                axios.post("http://127.0.0.1:8000/api/getCartData",{user_token : localStorage.getItem('authToken')}).then(response=>{
+                    this.cartItems = response.data.cartData.length
+                });
             }
+        },
+        mounted () {
+            this.checkAuthState();
+            this.countCartItems();
         }
     }
 </script>

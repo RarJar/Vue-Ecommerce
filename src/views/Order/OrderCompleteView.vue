@@ -2,9 +2,9 @@
     <div>
         <!-- breadcrum -->
     <div class="py-4 container flex gap-3 items-center">
-        <a href="index.html" class="text-primary text-base">
+        <router-link to="/" class="text-primary text-base">
             <i class="fas fa-home"></i>
-        </a>
+        </router-link>
         <span class="text-sm text-gray-400"><i class="fas fa-chevron-right"></i></span>
         <p class="text-gray-600 font-medium uppercase">Shopping Cart</p>
     </div>

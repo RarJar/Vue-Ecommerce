@@ -32,61 +32,58 @@
                 <div class="space-y-1 pl-8">
                     <router-link to="/profile" 
                         class="relative text-base font-medium capitalize hover:text-primary transition block text-primary">
-                        Manage account
+                        ကျွန်ုပ်အကောင့်
                         <span class="absolute -left-8 top-0 text-base">
                             <i class="far fa-address-card"></i>
                         </span>
                     </router-link>
 
-                    <router-link to="/profileInfo" class="hover:text-primary transition capitalize block">Profile information</router-link>
+                    <router-link to="/profileInfo" class="hover:text-primary transition capitalize block">အကောင့်စီမံခြင်း</router-link>
 
-                    <router-link to="/manageAddress" class="hover:text-primary transition capitalize block">Manage address</router-link>
+                    <router-link to="/manageAddress" class="hover:text-primary transition capitalize block">နေရပ်လိပ်စာစီမံခြင်း</router-link>
 
-                    <router-link to="/changePassword" class="hover:text-primary transition capitalize block">change password</router-link>
+                    <router-link to="/changePassword" class="hover:text-primary transition capitalize block">စကားဝှက်စီမံခြင်း</router-link>
                 </div>
                 <!-- single link end -->
                 <!-- single link -->
                 <div class="space-y-1 pl-8 pt-4">
                     <a href="#"
                         class="relative medium capitalize text-gray-800 font-medium hover:text-primary transition block">
-                        My order history
+                        အော်ဒါမှာယူထားသောစာရင်းများ
                         <span class="absolute -left-8 top-0 text-base">
                             <i class="fas fa-gift"></i>
                         </span>
                     </a>
-                    <a href="#" class="hover:text-primary transition block capitalize">my returns</a>
-                    <a href="#" class="hover:text-primary transition block capitalize">my cancellations</a>
-                    <a href="#" class="hover:text-primary transition block capitalize">my reviews</a>
+                    <a href="#" class="hover:text-primary transition block capitalize">အော်ဒါအောင်မြင်မှုများ</a>
+                    <a href="#" class="hover:text-primary transition block capitalize">ငြင်းပယ်ခံရမှုများ</a>
                 </div>
                 <!-- single link end -->
                 <!-- single link -->
                 <div class="space-y-1 pl-8 pt-4">
                     <a href="#"
                         class="relative medium capitalize text-gray-800 font-medium hover:text-primary transition block">
-                        Payment methods
+                        ငွေပေးချေမှုနည်းလမ်းများ
                         <span class="absolute -left-8 top-0 text-base">
                             <i class="far fa-credit-card"></i>
                         </span>
                     </a>
-                    <a href="#" class="hover:text-primary transition block capitalize">Voucher</a>
+                    <a href="#" class="hover:text-primary transition block capitalize">ဘောင်ချာများ</a>
                 </div>
                 <!-- single link end -->
                 <!-- single link -->
                 <div class="pl-8 pt-4">
-                    <a href="wishlist.html"
-                        class="relative medium capitalize text-gray-800 font-medium hover:text-primary transition block">
-                        my wishlist
+                   <router-link to="/favorite" class="relative medium capitalize text-gray-800 font-medium hover:text-primary transition block">
+                        အကြိုက်ဆုံးစာရင်း
                         <span class="absolute -left-8 top-0 text-base">
                             <i class="far fa-heart"></i>
                         </span>
-                    </a>
+                    </router-link>
                 </div>
                 <!-- single link end -->
                 <!-- single link -->
                 <div class="pl-8 pt-4">
-                    <a href="#"
-                        class="relative medium capitalize text-gray-800 font-medium hover:text-primary transition block">
-                        logout
+                    <a href="#" class="relative medium capitalize text-gray-800 font-medium hover:text-primary transition block" @click="logoutBtn()">
+                        အကောင့်ထွက်မည်
                         <span class="absolute -left-8 top-0 text-base">
                             <i class="fas fa-sign-out-alt"></i>
                         </span>
@@ -108,15 +105,29 @@
                     <div class="grid sm:grid-cols-2 gap-4">
                         <div>
                             <label class="text-gray-600 mb-2 block">
-                                First Name
+                                Image
                             </label>
-                            <input type="text" class="input-box" value="John">
+                            <input type="file" class="input-box" value="John">
                         </div>
                         <div>
                             <label class="text-gray-600 mb-2 block">
-                                Last Name
+                                Name
                             </label>
                             <input type="text" class="input-box" value="Doe">
+                        </div>
+                    </div>
+                    <div class="grid sm:grid-cols-2 gap-4">
+                        <div>
+                            <label class="text-gray-600 mb-2 block">
+                                Email Address
+                            </label>
+                            <input type="text" class="input-box" value="example@mail.com">
+                        </div>
+                        <div>
+                            <label class="text-gray-600 mb-2 block">
+                                Phone Number
+                            </label>
+                            <input type="text" class="input-box" value="+123 456 789">
                         </div>
                     </div>
                     <div class="grid sm:grid-cols-2 gap-4">
@@ -134,20 +145,6 @@
                                 <option>Male</option>
                                 <option>Female</option>
                             </select>
-                        </div>
-                    </div>
-                    <div class="grid sm:grid-cols-2 gap-4">
-                        <div>
-                            <label class="text-gray-600 mb-2 block">
-                                Email Address
-                            </label>
-                            <input type="text" class="input-box" value="example@mail.com">
-                        </div>
-                        <div>
-                            <label class="text-gray-600 mb-2 block">
-                                Phone Number
-                            </label>
-                            <input type="text" class="input-box" value="+123 456 789">
                         </div>
                     </div>
                 </div>

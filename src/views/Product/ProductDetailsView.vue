@@ -2,86 +2,62 @@
     <div>
         <!-- breadcrum -->
     <div class="py-4 container flex gap-3 items-center">
-        <a href="index.html" class="text-primary text-base">
+        <router-link to="/" class="text-primary text-base">
             <i class="fas fa-home"></i>
-        </a>
+        </router-link>
         <span class="text-sm text-gray-400"><i class="fas fa-chevron-right"></i></span>
-        <a href="shop.html" class="text-primary text-base font-medium uppercase">
+        <router-link to="/shop" class="text-primary text-base font-medium uppercase">
             Shop
-        </a>
+        </router-link>
         <span class="text-sm text-gray-400"><i class="fas fa-chevron-right"></i></span>
-        <p class="text-gray-600 font-medium uppercase">Italian L Shape Sofa</p>
+        <p class="text-gray-600 font-medium uppercase">{{productDetails.name}}</p>
     </div>
     <!-- breadcrum end -->
-
     <!-- product view -->
     <div class="container pt-4 pb-6 grid lg:grid-cols-2 gap-6">
         <!-- product image -->
         <div>
             <div>
-                <img id="main-img" src="images/products/product9.jpg" class="w-full">
+                <img :src="mainImage" class="w-full">
             </div>
+
             <div class="grid grid-cols-5 gap-4 mt-4">
-                <div>
-                    <img src="images/products/product9.jpg" class="single-img w-full cursor-pointer border border-primary">
-                </div>
-                <div>
-                    <img src="images/products/product1.jpg" class="single-img w-full cursor-pointer border">
-                </div>
-                <div>
-                    <img src="images/products/product8.jpg" class="single-img w-full cursor-pointer border">
-                </div>
-                <div>
-                    <img src="images/products/product12.jpg" class="single-img w-full cursor-pointer border">
-                </div>
-                <div>
-                    <img src="images/products/product11.jpg" class="single-img w-full cursor-pointer border">
+                <div v-for="(images,index) in allImages" :key="index">
+                    <img :src="images.image" class="single-img w-full cursor-pointer border" @click="setImage(images.image)">
                 </div>
             </div>
         </div>
         <!-- product image end -->
         <!-- product content -->
         <div>
-            <h2 class="md:text-3xl text-2xl font-medium uppercase mb-2">Italian L Shape Sofa</h2>
+            <h2 class="md:text-3xl text-2xl font-medium uppercase mb-2">{{productDetails.name}}</h2>
             <div class="flex items-center mb-4">
                 <div class="flex gap-1 text-sm text-yellow-400">
-                    <span><i class="fas fa-star"></i></span>
-                    <span><i class="fas fa-star"></i></span>
-                    <span><i class="fas fa-star"></i></span>
-                    <span><i class="fas fa-star"></i></span>
-                    <span><i class="fas fa-star"></i></span>
+                    <div class="star-rating">
+                        <span v-for="n in maxStars" :key="n" @click="updateRating(n)">
+                            <i :class="[rating >= n ? 'fas' : 'far', 'fa-star']" id="star"></i>
+                        </span>
+                    </div>
                 </div>
-                <div class="text-xs text-gray-500 ml-3">(150 Reviews)</div>
+                <div class="text-md text-gray-500 ml-3">({{ rating }} / 5)</div>
             </div>
             <div class="space-y-2">
                 <p class="text-gray-800 font-semibold space-x-2">
                     <span>Availability: </span>
-                    <span class="text-green-600">In Stock</span>
+                    <span class="text-green-600">{{productDetails.availability}}</span>
                 </p>
                 <p class="space-x-2">
-                    <span class="text-gray-800 font-semibold">Brand: </span>
-                    <span class="text-gray-600">Apex</span>
-                </p>
-                <p class="space-x-2">
-                    <span class="text-gray-800 font-semibold">Category: </span>
-                    <span class="text-gray-600">Sofa</span>
-                </p>
-                <p class="space-x-2">
-                    <span class="text-gray-800 font-semibold">SKU: </span>
-                    <span class="text-gray-600">BE45VGRT</span>
+                    <span class="text-gray-800 font-semibold">အုပ်စုအမျိုးအစား : </span>
+                    <span class="text-gray-600">{{productDetails.categoryName}}</span>
                 </p>
             </div>
             <div class="mt-4 flex items-baseline gap-3">
-                <span class="text-primary font-semibold text-xl">$450.00</span>
-                <span class="text-gray-500 text-base line-through">$500.00</span>
+                <span class="text-primary font-semibold text-xl">{{productDetails.discount_price}} ကျပ်</span>
+                <span class="text-gray-500 text-base line-through">{{productDetails.original_price}} ကျပ်</span>
             </div>
-            <p class="mt-4 text-gray-600">
-                Lorem ipsum dolor sit amet consectetur adipisicing elit. Enim exercitationem quaerat excepturi
-                labore blanditiis
-            </p>
             <!-- size -->
             <div class="mt-4">
-                <h3 class="text-base text-gray-800 mb-1">Size</h3>
+                <h3 class="text-base text-gray-800 mb-1">အရွယ်အစား</h3>
                 <div class="flex items-center gap-2">
                     <!-- single size -->
                     <div class="size-selector">
@@ -133,7 +109,7 @@
             <!-- size end -->
             <!-- color -->
             <div class="mt-4">
-                <h3 class="text-base text-gray-800 mb-1">Color</h3>
+                <h3 class="text-base text-gray-800 mb-1">အရောင်</h3>
                 <div class="flex items-center gap-2">
                     <!-- single color -->
                     <div class="color-selector">
@@ -164,23 +140,26 @@
             <!-- color end -->
             <!-- quantity -->
             <div class="mt-4">
-                <h3 class="text-base text-gray-800 mb-1">Quantity</h3>
+                <h3 class="text-base text-gray-800 mb-1">ဝယ်ယူမည့်အရေအတွက်</h3>
                 <div class="flex border border-gray-300 text-gray-600 divide-x divide-gray-300 w-max">
-                    <div class="h-8 w-8 text-xl flex items-center justify-center cursor-pointer select-none">-</div>
-                    <div class="h-8 w-10 flex items-center justify-center">4</div>
-                    <div class="h-8 w-8 text-xl flex items-center justify-center cursor-pointer select-none">+</div>
+
+                    <button :disabled="qtyMinusDisabled" class="h-8 w-8 text-xl flex items-center justify-center cursor-pointer select-none" @click="minusQuantity()">-</button>
+
+                    <div class="h-8 w-10 flex items-center justify-center">{{qtyValue}}</div>
+                    
+                    <button class="h-8 w-8 text-xl flex items-center justify-center cursor-pointer select-none" @click="plusQuantity()">+</button>
+                    
                 </div>
             </div>
             <!-- color end -->
             <!-- add to cart button -->
             <div class="flex gap-3 border-b border-gray-200 pb-5 mt-6">
-                <router-link to="/cart" class="bg-primary border border-primary text-white px-8 py-2 font-medium rounded uppercase 
-                    hover:bg-transparent hover:text-primary transition text-sm flex items-center">
-                    <span class="mr-2"><i class="fas fa-shopping-bag"></i></span> Add to cart
-                </router-link>
+                <a class="bg-primary border border-primary text-white px-8 py-2 font-medium rounded uppercase hover:bg-transparent hover:text-primary transition text-sm flex items-center" @click="addToCart(productDetails.product_token, this.qtyValue)">
+                    <span class="mr-2"><i class="fas fa-shopping-bag"></i></span> ဝယ်ယူမည်
+                </a>
                 <a href="#" class="border border-gray-300 text-gray-600 px-8 py-2 font-medium rounded uppercase 
                     hover:bg-transparent hover:text-primary transition text-sm">
-                    <span class="mr-2"><i class="far fa-heart"></i></span> Wishlist
+                    <span class="mr-2"><i class="far fa-heart"></i></span> အကြိုက်ဆုံးစာရင်းထဲထည့်မည်
                 </a>
             </div>
             <!-- add to cart button end -->
@@ -209,7 +188,7 @@
     <div class="container pb-16">
         <!-- detail buttons -->
         <h3 class="border-b border-gray-200 font-roboto text-gray-800 pb-3 font-medium">
-            Product Details
+            ကုန်ပစ္စည်းအသေးစိပ်အချက်အလက်
         </h3>
         <!-- details button end -->
 
@@ -217,19 +196,7 @@
         <div class="lg:w-4/5 xl:w-3/5 pt-6">
             <div class="space-y-3 text-gray-600">
                 <p>
-                    Incredible graphics performanceMacBook Air can take on more graphics-intensive projects than
-                    ever. For the first time, content creators can edit and seamlessly play back multiple streams of
-                    full‑quality 4K video without dropping a frame.
-                </p>
-                <p>
-                    Incredible graphics performanceMacBook Air can take on more graphics-intensive projects than
-                    ever. For the first time, content creators can edit and seamlessly play back multiple streams of
-                    full‑quality 4K video without dropping a frame.
-                </p>
-                <p>
-                    Apps on MacBook Air can use machine learning (ML) to automatically retouch photos like a pro,
-                    make smart tools such as magic wands and audio filters more accurate at auto‑detection, and so
-                    much more. That’s not just brain power — that’s the power of a full stack of ML technologies.
+                    {{productDetails.description}}
                 </p>
             </div>
             <!-- details table -->
@@ -255,205 +222,51 @@
 
     <!-- related products -->
     <div class="container pb-16">
-        <h2 class="text-2xl md:text-3xl font-medium text-gray-800 uppercase mb-6">related products</h2>
+        <h2 class="text-xl md:text-2xl font-medium text-gray-800 uppercase mb-6">အမျိုးအစားတူပစ္စည်းများ</h2>
         <!-- product wrapper -->
         <div class="grid lg:grid-cols-4 sm:grid-cols-2 gap-6">
             <!-- single product -->
-            <div class="group rounded bg-white shadow overflow-hidden">
-                <!-- product image -->
-                <div class="relative">
-                    <img src="images/products/product9.jpg" class="w-full">
-                    <div
-                        class="absolute inset-0 bg-black bg-opacity-40 flex items-center justify-center gap-2 opacity-0 group-hover:opacity-100 transition">
-                        <a href="view.html"
-                            class="text-white text-lg w-9 h-9 rounded-full bg-primary hover:bg-gray-800 transition flex items-center justify-center">
-                            <i class="fas fa-search"></i>
-                        </a>
-                        <a href="#"
-                            class="text-white text-lg w-9 h-9 rounded-full bg-primary hover:bg-gray-800 transition flex items-center justify-center">
-                            <i class="far fa-heart"></i>
-                        </a>
-                    </div>
-                </div>
-                <!-- product image end -->
-                <!-- product content -->
-                <div class="pt-4 pb-3 px-4">
-                    <a href="view.html">
-                        <h4 class="uppercase font-medium text-xl mb-2 text-gray-800 hover:text-primary transition">
-                            Guyer chair
-                        </h4>
-                    </a>
-                    <div class="flex items-baseline mb-1 space-x-2">
-                        <p class="text-xl text-primary font-roboto font-semibold">$45.00</p>
-                        <p class="text-sm text-gray-400 font-roboto line-through">$55.00</p>
-                    </div>
-                    <div class="flex items-center">
-                        <div class="flex gap-1 text-sm text-yellow-400">
-                            <span><i class="fas fa-star"></i></span>
-                            <span><i class="fas fa-star"></i></span>
-                            <span><i class="fas fa-star"></i></span>
-                            <span><i class="fas fa-star"></i></span>
-                            <span><i class="fas fa-star"></i></span>
+                <div class="group rounded bg-white shadow overflow-hidden" v-for="(product,index) in sameCategoryProducts" :key="index">
+                    <!-- product image -->
+                    <div class="relative">
+
+                        <div v-for="(image,index) in sameCategoryProductsImages" :key="index">
+                            <img :src="image.image" id="productImage" v-if="image.product_token == product.product_token">
                         </div>
-                        <div class="text-xs text-gray-500 ml-3">(150)</div>
-                    </div>
-                </div>
-                <!-- product content end -->
-                <!-- product button -->
-                <a href="#"
-                    class="block w-full py-1 text-center text-white bg-primary border border-primary rounded-b hover:bg-transparent hover:text-primary transition">
-                    Add to Cart
-                </a>
-                <!-- product button end -->
-            </div>
-            <!-- single product end -->
-            <!-- single product -->
-            <div class="group rounded bg-white shadow overflow-hidden">
-                <!-- product image -->
-                <div class="relative">
-                    <img src="images/products/product1.jpg" class="w-full">
-                    <div
-                        class="absolute inset-0 bg-black bg-opacity-40 flex items-center justify-center gap-2 opacity-0 group-hover:opacity-100 transition">
-                        <a href="view.html"
-                            class="text-white text-lg w-9 h-9 rounded-full bg-primary hover:bg-gray-800 transition flex items-center justify-center">
-                            <i class="fas fa-search"></i>
-                        </a>
-                        <a href="#"
-                            class="text-white text-lg w-9 h-9 rounded-full bg-primary hover:bg-gray-800 transition flex items-center justify-center">
-                            <i class="far fa-heart"></i>
-                        </a>
-                    </div>
-                </div>
-                <!-- product image end -->
-                <!-- product content -->
-                <div class="pt-4 pb-3 px-4">
-                    <a href="view.html">
-                        <h4 class="uppercase font-medium text-xl mb-2 text-gray-800 hover:text-primary transition">
-                            Guyer chair
-                        </h4>
-                    </a>
-                    <div class="flex items-baseline mb-1 space-x-2">
-                        <p class="text-xl text-primary font-roboto font-semibold">$45.00</p>
-                        <p class="text-sm text-gray-400 font-roboto line-through">$55.00</p>
-                    </div>
-                    <div class="flex items-center">
-                        <div class="flex gap-1 text-sm text-yellow-400">
-                            <span><i class="fas fa-star"></i></span>
-                            <span><i class="fas fa-star"></i></span>
-                            <span><i class="fas fa-star"></i></span>
-                            <span><i class="fas fa-star"></i></span>
-                            <span><i class="fas fa-star"></i></span>
+
+                        <div class="absolute inset-0 bg-black bg-opacity-40 flex items-center justify-center gap-2 opacity-0 group-hover:opacity-100 transition">
+                            <a class="text-white text-lg w-9 h-9 rounded-full bg-primary hover:bg-gray-800 transition flex items-center justify-center" @click="viewPostDetails(product.product_token)">
+                                <i class="fa fa-ellipsis"></i>
+                            </a>
+                            <a href="#" class="text-white text-lg w-9 h-9 rounded-full bg-primary hover:bg-gray-800 transition flex items-center justify-center">
+                                <i class="fa fa-heart"></i>
+                            </a>
                         </div>
-                        <div class="text-xs text-gray-500 ml-3">(150)</div>
                     </div>
-                </div>
-                <!-- product content end -->
-                <!-- product button -->
-                <a href="#"
-                    class="block w-full py-1 text-center text-white bg-primary border border-primary rounded-b hover:bg-transparent hover:text-primary transition">
-                    Add to Cart
-                </a>
-                <!-- product button end -->
-            </div>
-            <!-- single product end -->
-            <!-- single product -->
-            <div class="group rounded bg-white shadow overflow-hidden">
-                <!-- product image -->
-                <div class="relative">
-                    <img src="images/products/product8.jpg" class="w-full">
-                    <div
-                        class="absolute inset-0 bg-black bg-opacity-40 flex items-center justify-center gap-2 opacity-0 group-hover:opacity-100 transition">
-                        <a href="view.html"
-                            class="text-white text-lg w-9 h-9 rounded-full bg-primary hover:bg-gray-800 transition flex items-center justify-center">
-                            <i class="fas fa-search"></i>
+                    <!-- product image end -->
+                    <!-- product content -->
+                    <div class="pt-4 pb-3 px-4">
+                        <a href="view.html">
+                            <h4 class="uppercase font-medium text-xl mb-2 text-gray-800 hover:text-primary transition" id="productTitle">
+                                {{product.name}}
+                            </h4>
                         </a>
-                        <a href="#"
-                            class="text-white text-lg w-9 h-9 rounded-full bg-primary hover:bg-gray-800 transition flex items-center justify-center">
-                            <i class="far fa-heart"></i>
-                        </a>
-                    </div>
-                </div>
-                <!-- product image end -->
-                <!-- product content -->
-                <div class="pt-4 pb-3 px-4">
-                    <a href="view.html">
-                        <h4 class="uppercase font-medium text-xl mb-2 text-gray-800 hover:text-primary transition">
-                            Guyer chair
-                        </h4>
-                    </a>
-                    <div class="flex items-baseline mb-1 space-x-2">
-                        <p class="text-xl text-primary font-roboto font-semibold">$45.00</p>
-                        <p class="text-sm text-gray-400 font-roboto line-through">$55.00</p>
-                    </div>
-                    <div class="flex items-center">
-                        <div class="flex gap-1 text-sm text-yellow-400">
-                            <span><i class="fas fa-star"></i></span>
-                            <span><i class="fas fa-star"></i></span>
-                            <span><i class="fas fa-star"></i></span>
-                            <span><i class="fas fa-star"></i></span>
-                            <span><i class="fas fa-star"></i></span>
+                        <div class="flex items-baseline mb-1 space-x-2">
+                            <p class="text-xl text-primary font-roboto font-semibold">{{product.discount_price}} ကျပ်</p>
+                            <p class="text-sm text-gray-400 font-roboto line-through">{{product.original_price}} ကျပ်</p>
                         </div>
-                        <div class="text-xs text-gray-500 ml-3">(150)</div>
-                    </div>
-                </div>
-                <!-- product content end -->
-                <!-- product button -->
-                <a href="#"
-                    class="block w-full py-1 text-center text-white bg-primary border border-primary rounded-b hover:bg-transparent hover:text-primary transition">
-                    Add to Cart
-                </a>
-                <!-- product button end -->
-            </div>
-            <!-- single product end -->
-            <!-- single product -->
-            <div class="group rounded bg-white shadow overflow-hidden">
-                <!-- product image -->
-                <div class="relative">
-                    <img src="images/products/product12.jpg" class="w-full">
-                    <div
-                        class="absolute inset-0 bg-black bg-opacity-40 flex items-center justify-center gap-2 opacity-0 group-hover:opacity-100 transition">
-                        <a href="view.html"
-                            class="text-white text-lg w-9 h-9 rounded-full bg-primary hover:bg-gray-800 transition flex items-center justify-center">
-                            <i class="fas fa-search"></i>
-                        </a>
-                        <a href="#"
-                            class="text-white text-lg w-9 h-9 rounded-full bg-primary hover:bg-gray-800 transition flex items-center justify-center">
-                            <i class="far fa-heart"></i>
-                        </a>
-                    </div>
-                </div>
-                <!-- product image end -->
-                <!-- product content -->
-                <div class="pt-4 pb-3 px-4">
-                    <a href="view.html">
-                        <h4 class="uppercase font-medium text-xl mb-2 text-gray-800 hover:text-primary transition">
-                            Guyer chair
-                        </h4>
-                    </a>
-                    <div class="flex items-baseline mb-1 space-x-2">
-                        <p class="text-xl text-primary font-roboto font-semibold">$45.00</p>
-                        <p class="text-sm text-gray-400 font-roboto line-through">$55.00</p>
-                    </div>
-                    <div class="flex items-center">
-                        <div class="flex gap-1 text-sm text-yellow-400">
-                            <span><i class="fas fa-star"></i></span>
-                            <span><i class="fas fa-star"></i></span>
-                            <span><i class="fas fa-star"></i></span>
-                            <span><i class="fas fa-star"></i></span>
-                            <span><i class="fas fa-star"></i></span>
+                        <div class="flex gap-1 text-sm text-yellow-400" v-for="(rating, index) in productRatings" :key="index">
+                                <span v-for="n in 5" :key="n">
+                                    <i :class="[rating.rating_count >= n ? 'fas' : 'far', 'fa-star']" id="star" v-if="rating.product_token == product.product_token"></i>
+                                </span>
                         </div>
-                        <div class="text-xs text-gray-500 ml-3">(150)</div>
                     </div>
+                    <!-- product content end -->
+                    <!-- product button -->
+                    <a class="block w-full py-1 text-center text-white bg-primary border border-primary rounded-b hover:bg-transparent hover:text-primary transition cursor-pointer" @click="addToCart(product.product_token,1)">ဝယ်ယူမည်</a>
+                    <!-- product button end -->
                 </div>
-                <!-- product content end -->
-                <!-- product button -->
-                <router-link to="/cart"
-                    class="block w-full py-1 text-center text-white bg-primary border border-primary rounded-b hover:bg-transparent hover:text-primary transition">
-                    Add to Cart
-                </router-link>
-                <!-- product button end -->
-            </div>
-            <!-- single product end -->
+                <!-- single product end -->
         </div>
         <!-- product wrapper end -->
     </div>
@@ -462,7 +275,181 @@
 </template>
 
 <script>
+import axios from "axios";
+
     export default {
+    name: "ProductDetailsView",
+
+        props: {
+            maxStars: {
+                type: Number,
+                default: 5,
+            },
+            initialRating: {
+                type: Number,
+                default: 0,
+            }
+        },
         
+        data () {
+            return {
+                mainImage: '',
+                allImages : [],
+                qtyValue : 1,
+                qtyMinusDisabled : false,
+                productDetails : '',
+
+                // borderPrimary : 'border-primary',
+                sameCategoryProducts: [],
+                sameCategoryProductsImages: [],
+
+                rating: this.initialRating,
+            }
+        },
+        
+        methods: {
+            setImage(imageUrl) {
+                this.mainImage = imageUrl
+            },
+            minusQuantity(){
+                this.qtyValue--;
+                if (this.qtyValue == 1) {
+                    this.qtyMinusDisabled = true
+                }
+
+                this.discountPrice = this.qtyValue * this.productDetails.discount_price
+            },
+            plusQuantity(){
+                this.qtyValue++;
+                this.qtyMinusDisabled = false
+
+                this.discountPrice = this.qtyValue * this.productDetails.discount_price
+            },
+            loadProductDetails(){
+                let data = {
+                    Token : this.$route.params.productToken
+                }
+                
+                this.loadProductDetails_commonMethod(data);
+            },
+            viewPostDetails(product_token){
+                let data = {
+                    Token : product_token
+                }
+
+                this.loadProductDetails_commonMethod(data);
+            },
+            loadProductDetails_commonMethod(data){
+                axios.post("http://127.0.0.1:8000/api/getProductDetails",data).then(response=>{
+                    // Top Main Image
+                    response.data.mainImage.image = "http://127.0.0.1:8000/productImage/" + response.data.mainImage.image
+
+                    // All Product Images
+                    for (let i = 0; i < response.data.allImages.length; i++) {
+                        response.data.allImages[i].image = "http://127.0.0.1:8000/productImage/" + response.data.allImages[i].image   
+                    }
+
+                    this.mainImage = response.data.mainImage.image
+                    this.allImages = response.data.allImages
+                    this.productDetails = response.data.productData
+
+                    // this.productDetails.category ကို loadProductDetails ၏အပြင်ကနေခေါ်လို့မရသောကြောင့် getAllSameCategoryProductsကိုဒီကနေပြန်ခေါ်ပေးခြင်းဖြစ်သည်
+                    this.getAllSameCategoryProducts();
+                });
+            },
+            getAllSameCategoryProducts(){
+                let data = {
+                        productToken : this.productDetails.product_token,
+                        categoryID : this.productDetails.category
+                }
+
+                axios.post("http://127.0.0.1:8000/api/getAllSameCategoryProducts",data).then(response=>{
+                    for (let i = 0; i < response.data.images.length; i++) {
+                        response.data.images[i].image = "http://127.0.0.1:8000/productImage/" + response.data.images[i].image   
+                    }
+                    this.sameCategoryProductsImages = response.data.images
+                    this.sameCategoryProducts = response.data.products
+                });
+            },
+            addToCart(productToken, productQty) {
+                if (localStorage.getItem('authToken') == "") {
+                    this.$router.push('/login');
+                }else{
+                    
+                    let cartData = {
+                        user_token : localStorage.getItem('authToken'),
+                        product_token: productToken,
+                        product_quantity: productQty
+                    }
+                    axios.post("http://127.0.0.1:8000/api/addToCart",cartData).then(response=>{
+                        if (response.data.state == 'success') { 
+                            this.$swal.fire({
+                                position: 'top-end',
+                                icon: "success",
+                                title: "စျေးခြင်းတောင်းတွင်းသို့ထည့်ပြီး",
+                                didOpen: (toast) => {
+                                    toast.addEventListener('mouseenter', this.$swal.stopTimer)
+                                    toast.addEventListener('mouseleave', this.$swal.resumeTimer)
+                                }
+                            });
+                        }
+                    });
+                }
+            },
+            updateRating(n) {
+                this.rating = n;
+
+                let data = {
+                    productToken: this.$route.params.productToken,
+                    userToken: localStorage.getItem('authToken'),
+                    rating: this.rating
+                }
+
+                axios.post("http://127.0.0.1:8000/api/setProductRating", data).then(response => {
+                    console.log(response);
+                });
+            },
+            getProductRating() {
+                let data = {
+                    productToken: this.$route.params.productToken,
+                    userToken: localStorage.getItem('authToken')
+                }
+
+                axios.post("http://127.0.0.1:8000/api/getProductRating", data).then(response => {
+                    this.rating = response.data.rating
+                });
+
+                axios.post("http://127.0.0.1:8000/api/getAllProductRatings", data).then(response => {
+                    this.productRatings = response.data.Ratings
+                });
+            }
+        },
+        
+        mounted () {
+            this.loadProductDetails();
+            this.getProductRating();
+        }
     }
 </script>
+
+<style scoped>
+    .single-img{
+        height: 90px;
+    }
+    #productImage{
+        width: 100%;
+        height: 210px;
+    }
+    #productTitle{
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+
+    #star {
+        font-size: 1.3rem;
+        color: gold;
+        cursor: pointer;
+    }
+</style>
+

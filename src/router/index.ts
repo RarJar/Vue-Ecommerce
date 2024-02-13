@@ -14,60 +14,130 @@ const routes: Array<RouteRecordRaw> = [
   // Account
   {
     path: '/profile',
-    component: () => import('../views/Account/ProfileView.vue') 
+    component: () => import('../views/Account/ProfileView.vue'),
+    beforeEnter: (to,from,next) => {
+      if (localStorage.getItem('authToken') == "") {
+          next('/login');
+      }else{
+          next();
+      }
+    }
   },
   {
     path: '/profileInfo',
-    component: () => import('../views/Account/ProfileInfoView.vue') 
+    component: () => import('../views/Account/ProfileInfoView.vue'),
+    beforeEnter: (to,from,next) => {
+      if (localStorage.getItem('authToken') == "") {
+          next('/login');
+      }else{
+          next();
+      }
+    }
   },
   {
     path: '/manageAddress',
-    component: () => import('../views/Account/ManageAddressView.vue')
+    component: () => import('../views/Account/ManageAddressView.vue'),
+    beforeEnter: (to,from,next) => {
+      if (localStorage.getItem('authToken') == "") {
+          next('/login');
+      }else{
+          next();
+      }
+    }
   },
   {
     path: '/changePassword',
-    component: () => import('../views/Account/ChangePasswordView.vue')
+    component: () => import('../views/Account/ChangePasswordView.vue'),
+    beforeEnter: (to,from,next) => {
+      if (localStorage.getItem('authToken') == "") {
+          next('/login');
+      }else{
+          next();
+      }
+    }
   },
 
   // Auth
   {
     path: '/login',
-    component: () => import('../views/Auth/LoginView.vue')
+    component: () => import('../views/Auth/LoginView.vue'),
+    beforeEnter: (to,from,next) => {
+      if (localStorage.getItem('authToken') == "") {
+        next();
+      }else{
+        next('/profile');
+      }
+    }
   },
   {
     path: '/register',
-    component: () => import('../views/Auth/RegisterView.vue')
+    component: () => import('../views/Auth/RegisterView.vue'),
+    beforeEnter: (to,from,next) => {
+      if (localStorage.getItem('authToken') == "") {
+        next();
+      }else{
+        next('/profile');
+      }
+    }
   },
 
   // Product
   {
-    path: '/productDetails',
+    path: '/productDetails/:productToken',
     component: () => import('../views/Product/ProductDetailsView.vue')
   },
   {
-    path: '/productWishList',
-    component: () => import('../views/Product/ProductWishListView.vue')
+    path: '/favorite',
+    component: () => import('../views/Product/ProductWishListView.vue'),
+    beforeEnter: (to,from,next) => {
+      if (localStorage.getItem('authToken') == "") {
+          next('/login');
+      }else{
+          next();
+      }
+    }
   },
   
   // Order
   {
     path: '/cart',
-    component: () => import('../views/Order/CartView.vue')
+    component: () => import('../views/Order/CartView.vue'),
+    beforeEnter: (to,from,next) => {
+      if (localStorage.getItem('authToken') == "") {
+          next('/login');
+      }else{
+          next();
+      }
+    }
   },
   {
     path: '/checkout',
-    component: () => import('../views/Order/CheckOutView.vue')
+    component: () => import('../views/Order/CheckOutView.vue'),
+    beforeEnter: (to,from,next) => {
+      if (localStorage.getItem('authToken') == "") {
+          next('/login');
+      }else{
+          next();
+      }
+    }
   },
   {
     path: '/orderComplete',
-    component: () => import('../views/Order/OrderCompleteView.vue')
+    component: () => import('../views/Order/OrderCompleteView.vue'),
+    beforeEnter: (to,from,next) => {
+      if (localStorage.getItem('authToken') == "") {
+          next('/login');
+      }else{
+          next();
+      }
+    }
   },
 
   // 404
   {
     path: '/:pathMatch(.*)*',
-    component: () => import('../views/Main/NotFoundView.vue')
-  }  
+    component: () => import('../views/Common/NotFoundView.vue')
+  } 
 
 ]
 
